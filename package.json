@@ -9,11 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fs": "^0.0.1-security",
     "zod": "^4.1.5"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.0.3",
+    "@types/node": "^24.3.1",
     "jest": "^30.1.1",
     "ts-jest": "^29.4.1",
     "ts-node": "^10.9.2",
