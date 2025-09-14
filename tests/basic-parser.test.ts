@@ -31,7 +31,7 @@ test("parseCSV yields only arrays", async () => {
 
 test("parseCSV distinguishes commas in data", async () => {
   const results = await parseCSV(QUOTE_CSV_PATH,undefined);
-  expect(results[1]).toEqual(["Bob","thirty", "I think, therefore I am."]);
+  expect(results[2]).toEqual(["Bob","thirty", "I think, therefore I am."]);
 });
 
 test("parseCSV recognizes empty CSV", async () => {
