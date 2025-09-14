@@ -1,0 +1,18 @@
+1. A useful parser would easily be able to determine if a CSV has a header in order to make it easily readible. It will also
+properly handle quotes correctly, with commas in quotes not being separated by the parser. It should also be structurall consistent 
+whenever it is called.
+
+2. A function like this would be very useful in testing different edge cases of the parser and could help ensure that the parser
+is structually consistent. For example, the CSV may seperate data using different characters such as semi colons or spaces which
+a good parser would be able to distinguish those cases. Also the use of large CSVs could be helpful in determining the validity 
+of the parser, ensuring that it could be used in real datasets. 
+
+3. Overall, this Sprint felt a lot more open ended then most of my other CS assignments so far. In the past, we would receive specific 
+instruction as to what Tasks we had to complete and how we were meant to do it. Here, the open ended approach confused me as I was unsure 
+as to what the professor wanted me to do. However, after reviewing the lecture again, looking through ED, and looking through the Type
+handout, I realized that all that I needed to know was right in front of me. I was surprised by how simple the final code was based off of
+how much time I took to produce it. There were a lot of issues that I encountered, mostly due to my inexperience with TypeScript. One of 
+the main issues was the handling of an error in my parser. While I originally wanted to create an error interface as we did in class, the 
+parser had issues with returning that value. Then I pivotted to just returning the safeParsed CSV instead, along with the error message if 
+it occurs, but I was not satisfied with the readability of the error message. Thus, I then decided to wrap the result in a similar form as 
+the return of the safeParse in order to create a customisable error message. 

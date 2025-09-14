@@ -1,14 +1,6 @@
 import * as fs from "fs";
 import * as readline from "readline";
-import { z } from "zod";
-
-export const PersonRowSchema = z.tuple([z.string(), z.coerce.number()])
-                         .transform( tup => ({name: tup[0], age: tup[1]}))
-
-
-// Define the corresponding TypeScript type for the above schema. 
-// Mouse over it in VSCode to see what TypeScript has inferred!
-export type Person = z.infer<typeof PersonRowSchema>;
+import { z, ZodType } from "zod";
 
 
 
@@ -25,7 +17,11 @@ export type Person = z.infer<typeof PersonRowSchema>;
  * @param path The path to the file being loaded.
  * @returns a "promise" to produce a 2-d array of cell values
  */
-export async function parseCSV(path: string): Promise<string[][]> {
+
+type ZodSafeParseResult<T> = { success: true; data: T } | { success: false; error: string};
+
+
+export async function parseCSV<T>(path: string, schema: ZodType<T> | undefined): Promise<string[][]| ZodSafeParseResult<T>[]> {
   // This initial block of code reads from a file in Node.js. The "rl"
   // value can be iterated over in a "for" loop. 
   const fileStream = fs.createReadStream(path);
@@ -35,14 +31,28 @@ export async function parseCSV(path: string): Promise<string[][]> {
   });
   
   // Create an empty array to hold the results
-  let result = []
+  let rows = []
   
   // We add the "await" here because file I/O is asynchronous. 
   // We need to force TypeScript to _wait_ for a row before moving on. 
   // More on this in class soon!
   for await (const line of rl) {
     const values = line.split(",").map((v) => v.trim());
-    result.push(values)
+    rows.push(values)
   }
-  return result
+    
+  if(!schema) {
+    return rows;
+  }
+  else {
+    const parsedRows: ZodSafeParseResult<T>[] = [];
+    for (let i = 0; i < rows.length; i++) {
+      const result=schema.safeParse(rows[i]);
+      if(result.success){
+        parsedRows.push({success: true, data: result.data})}
+      else{
+         parsedRows.push({success: false, error: "Row " +i+": Invalid Type"});}
+      }
+    return parsedRows;
+}
 }
