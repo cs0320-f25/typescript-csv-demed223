@@ -31,7 +31,7 @@ export async function parseCSV<T>(path: string, schema: ZodType<T> | undefined):
   });
   
   // Create an empty array to hold the results
-  let rows = []
+  let rows = [];
   
   // We add the "await" here because file I/O is asynchronous. 
   // We need to force TypeScript to _wait_ for a row before moving on. 
@@ -40,19 +40,19 @@ export async function parseCSV<T>(path: string, schema: ZodType<T> | undefined):
     const values = line.split(",").map((v) => v.trim());
     rows.push(values)
   }
-    
+  //Returns the rows if no schema is provided
   if(!schema) {
     return rows;
-  }
-  else {
+  } else {
     const parsedRows: ZodSafeParseResult<T>[] = [];
+    //Loops through each row and parses it according to the schema
     for (let i = 0; i < rows.length; i++) {
       const result=schema.safeParse(rows[i]);
+      //Pushes the result to the parsedRows array and pushes an error message if the row doesn't match the schema
       if(result.success){
-        parsedRows.push({success: true, data: result.data})}
-      else{
+        parsedRows.push({success: true, data: result.data})
+      }else{
          parsedRows.push({success: false, error: "Row " +i+": Invalid Type"});}
       }
     return parsedRows;
-}
-}
+  }}
