@@ -8,19 +8,26 @@ Fails to recognize quotes for commas inside of the code
 Fails to distinguish between headers versus data
 
 Extensibility
-Could use an error object that makes it easier to identify the issues with the code 
+Could use an error object that makes it easier to identify the issues with the code.  
+
 Could have a set type (ex. Age) and possibly convert the code to said type if possible for each (string vs int) OR run an error if the incorrect type is inputted. (create a schema for the parser)
 
 
 - #### Step 2: Use an LLM to help expand your perspective.
 
-Mentions quoted fields with commas
-The use of delimiters (such as tabs and semicolons)
-Suggest specific return formatting using headers 
-Providing useful errors rather than just exceptions 
-Implementation of configurable objects 
-Suggests making a debugging mode 
-Automatic header detection 
+Mentions quoted fields with commas. 
+
+The use of delimiters (such as tabs and semicolons). 
+
+Suggest specific return formatting using headers. 
+
+Providing useful errors rather than just exceptions. 
+
+Implementation of configurable objects. 
+
+Suggests making a debugging mode. 
+
+Automatic header detection. 
 
 - #### Step 3: use an LLM to help expand your perspective.
 
